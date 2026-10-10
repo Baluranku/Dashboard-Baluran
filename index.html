@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Taman Nasional Baluran</title>
+<style>
+:root{color-scheme:light;--bg:#f4f1e8;--panel:#fffdf7;--ink:#2a2418;--mut:#6b6250;--line:#ddd5c0;--brand:#8a5a14;--brand2:#f1e8d0;--hd:#4a3410;
+--s1:#d64527;--s2:#2f8f4e;--s3:#d99a1e;--s4:#3b6fb6;--s5:#8a9189;--s6:#7a1f3d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#17130b;--panel:#231d11;--ink:#efe8d6;--mut:#a89f88;--line:#3a3220;--brand:#e0a64a;--brand2:#2f2713;--hd:#2a2010}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#17130b;--panel:#231d11;--ink:#efe8d6;--mut:#a89f88;--line:#3a3220;--brand:#e0a64a;--brand2:#2f2713;--hd:#2a2010}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--hd);color:#fff;padding:18px 20px 0}
+.hrow{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.theme{display:inline-flex;border:1px solid rgba(255,255,255,.35);border-radius:99px;overflow:hidden}
+.theme button{background:none;border:0;color:#e8dcc0;padding:6px 14px;font:inherit;font-size:.85rem;cursor:pointer;white-space:nowrap}
+.theme button[aria-pressed=true]{background:#fff;color:#2a2418;font-weight:600}
+:root[data-theme="dark"] button.p{color:#1a1409}
+header h1{margin:0;font-size:1.25rem}
+header p{margin:2px 0 0;opacity:.8;font-size:.85rem}
+.conn{font-size:.78rem;opacity:.85;margin-top:6px}
+nav{display:flex;gap:4px;margin-top:14px;overflow-x:auto}
+nav button{background:none;border:0;color:#e8dcc0;padding:10px 16px;font:inherit;cursor:pointer;border-radius:8px 8px 0 0;white-space:nowrap}
+nav button[aria-selected=true]{background:var(--bg);color:var(--ink);font-weight:600}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+main{max-width:1200px;margin:0 auto;padding:20px}
+section[hidden]{display:none}
+h2{margin:0 0 4px;font-size:1.3rem}h3{margin:0 0 2px;font-size:1.02rem}
+.sub{color:var(--mut);font-size:.85rem;margin:0 0 12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px}
+.card{background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--c,var(--brand));border-radius:6px;padding:12px 14px}
+.card b{display:block;font-size:1.8rem;line-height:1.1}.card span{font-size:.82rem;color:var(--mut)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-bottom:22px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin-bottom:22px}
+.grid2 .box{margin:0}
+.tag{float:right;font-size:.78rem;background:var(--brand2);color:var(--brand);padding:2px 8px;border-radius:99px}
+.scroll{overflow:auto;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:var(--mut);font-weight:600}td.n,th.n{text-align:right}
+td.empty{color:var(--mut);text-align:center;white-space:normal}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:6px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+button.b,select,input,textarea{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 11px}
+button.b{cursor:pointer}button.p{background:var(--brand);color:#fff;border-color:var(--brand)}button.d{color:var(--s1);border-color:var(--s1)}
+.mx th,.mx td{text-align:center;padding:0;border:1px solid var(--line)}
+.mx th.l,.mx td.l{text-align:left;padding:6px 9px;position:sticky;left:0;background:var(--panel);z-index:1}
+.mx thead th{position:sticky;top:0;background:var(--panel);z-index:2;padding:6px}.mx thead th.l{z-index:3}
+.mx tr.g td{background:var(--brand2);font-weight:600;text-align:left;padding:5px 9px;cursor:pointer}
+.mx .today{background:var(--brand2)}
+.cell{display:block;width:100%;min-width:62px;height:34px;border:0;background:none;cursor:pointer;color:var(--mut);font-size:1.1rem}
+.cell.f{background:var(--c);color:#fff;font-size:.72rem;font-weight:600}.cell:hover{filter:brightness(1.12)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;margin-top:8px}
+svg.map,svg.ch{width:100%;height:auto;border-radius:6px}svg.map{background:var(--brand2)}
+svg text{fill:var(--mut);font-size:9px}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+label{display:flex;flex-direction:column;gap:4px;font-size:.84rem;color:var(--mut)}
+label input,label select,label textarea{width:100%}.wide{grid-column:1/-1}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+dialog{border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);max-width:min(440px,92vw);padding:18px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0 16px}dt{color:var(--mut)}dd{margin:0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--hd);color:#fff;padding:9px 16px;border-radius:6px;font-size:.88rem}
+.bar{height:8px;border-radius:4px;background:var(--brand);min-width:2px}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow"><div><h1>Dashboard Taman Nasional Baluran</h1>
+  <p>Balai Taman Nasional Baluran — Situbondo, Jawa Timur</p></div>
+  <div class="theme" role="group" aria-label="Pilih tema warna"><button data-th="light" aria-pressed="false">☀ Terang</button><button data-th="dark" aria-pressed="false">☾ Gelap</button></div></div>
+  <div class="conn"><span id="conn">● Mode contoh: laporan tersimpan di peramban ini</span> <button class="b" id="auth" hidden style="padding:2px 10px;margin-left:8px">Masuk petugas</button></div>
+  <nav role="tablist">
+    <button role="tab" data-t="dash" aria-selected="true">Karhutla</button>
+    <button role="tab" data-t="data" aria-selected="false">Data dinamis</button>
+    <button role="tab" data-t="form" aria-selected="false">Form laporan harian</button>
+  </nav>
+</header>
+<main>
+<section id="dash">
+  <h2>Pengendalian kebakaran hutan dan savana</h2>
+  <p class="sub">Kondisi terakhir tiap resort berdasarkan laporan harian dan hotspot SIPONGI.</p>
+  <div class="cards" id="cards"></div>
+  <div class="grid2">
+    <div class="box"><span class="tag" id="nAktif">0 lokasi</span><h3>Pemadaman aktif</h3><p class="sub">Resort dengan status terakhir Upaya Pemadaman.</p>
+      <div class="scroll"><table><thead><tr><th>Resort</th><th>Sejak</th><th>Durasi</th></tr></thead><tbody id="tAktif"></tbody></table></div></div>
+    <div class="box"><span class="tag" id="nUpd">0 lokasi</span><h3>Perlu update</h3><p class="sub">Status terbuka yang belum diperbarui hari ini.</p>
+      <div class="scroll"><table><thead><tr><th>Resort</th><th>Status</th><th>Terlambat</th></tr></thead><tbody id="tUpd"></tbody></table></div></div>
+  </div>
+  <div class="box">
+    <h3>Matriks resort × tanggal</h3>
+    <p class="sub">Klik sel berwarna untuk detail. Klik + pada sel kosong untuk mengisi laporan.</p>
+    <div class="tools">
+      <select id="fSeksi" aria-label="Filter seksi"></select>
+      <button class="b" id="showAll">Buka semua</button><button class="b" id="hideAll">Tutup semua</button><span style="flex:1"></span>
+      <button class="b" id="prev">← Sebelumnya</button><button class="b" id="now">Hari ini</button><button class="b" id="next">Berikutnya →</button>
+    </div>
+    <div class="scroll" style="max-height:420px"><table class="mx" id="mx"></table></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="box">
+    <h3>Peta kejadian dan hotspot</h3>
+    <p class="sub">Posisi laporan terakhir tiap resort. Titik kosong berarti belum ada laporan. Koordinat resort bersifat perkiraan.</p>
+    <svg class="map" id="map" viewBox="0 0 700 300" role="img" aria-label="Peta sebaran laporan Baluran"></svg>
+  </div>
+</section>
+
+<section id="data" hidden>
+  <h2>Data dinamis TN Baluran</h2>
+  <p class="sub">Contoh indikator pengelolaan. Semua angka berasal dari satu objek DATA di kode halaman dan mudah diganti.</p>
+  <div class="cards" id="kpi"></div>
+  <div class="grid2">
+    <div class="box"><h3>Kunjungan wisatawan 2026</h3><p class="sub">Orang per bulan, wisatawan nusantara dan mancanegara.</p><svg class="ch" id="chV" viewBox="0 0 400 200"></svg>
+      <div class="legend"><span><span class="dot" style="--c:var(--brand)"></span>Nusantara</span><span><span class="dot" style="--c:var(--s4)"></span>Mancanegara</span></div></div>
+    <div class="box"><h3>Patroli dan gangguan kawasan</h3><p class="sub">Per bulan.</p><div class="scroll"><table><thead><tr><th>Bulan</th><th class="n">Patroli</th><th class="n">Pelanggaran</th><th>Jenis utama</th></tr></thead><tbody id="tPat"></tbody></table></div></div>
+  </div>
+  <div class="box"><h3>Populasi satwa kunci</h3><p class="sub">Hasil monitoring terakhir (angka ilustrasi).</p><div class="scroll"><table><thead><tr><th>Satwa</th><th class="n">Individu</th><th style="width:40%">Sebaran relatif</th><th>Status IUCN</th></tr></thead><tbody id="tSat"></tbody></table></div></div>
+</section>
+
+<section id="form" hidden>
+  <h2 id="formTitle">Form laporan harian</h2>
+  <p class="sub">Satu laporan per resort per tanggal. Laporan di tanggal yang sama akan diperbarui.</p>
+  <div class="box">
+    <form id="f">
+      <label>Resort<select id="kws" required></select></label>
+      <label>Tanggal<input type="date" id="tgl" required></label>
+      <label>Status<select id="sts" required></select></label>
+      <label>Latitude<input type="number" step="any" id="lat" min="-8.1" max="-7.6"></label>
+      <label>Longitude<input type="number" step="any" id="lon" min="114.2" max="114.6"></label>
+      <label class="wide">Keterangan<textarea id="ket" rows="3" placeholder="Luas area terbakar, jumlah personel, kendala di lapangan"></textarea></label>
+      <div class="row wide"><button class="b p" type="submit">Simpan laporan</button><button class="b" type="button" id="reset">Kosongkan form</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<dialog id="dlg"><h3 id="dTitle"></h3><dl id="dBody"></dl>
+  <div class="row"><button class="b p" id="dEdit">Ubah data</button><button class="b d" id="dDel">Hapus data</button><button class="b" id="dClose">Tutup</button></div>
+</dialog>
+<dialog id="login"><h3>Masuk petugas</h3><form id="lf" style="margin-top:10px;grid-template-columns:1fr"><label>Email<input type="email" id="lem" required autocomplete="username"></label><label>Kata sandi<input type="password" id="lpw" required autocomplete="current-password"></label><div class="row"><button class="b p" type="submit">Masuk</button><button class="b" type="button" onclick="document.getElementById('login').close()">Batal</button></div></form></dialog>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+const ST=[
+ {k:'pemadaman',n:'Upaya Pemadaman',c:'var(--s1)',a:'P',open:1},
+ {k:'padam',n:'Sudah Padam',c:'var(--s2)',a:'S'},
+ {k:'groundcheck',n:'Proses Groundcheck',c:'var(--s3)',a:'G',open:1},
+ {k:'konfirmasi',n:'Perlu Konfirmasi',c:'var(--s4)',a:'K',open:1},
+ {k:'false',n:'False Hotspot',c:'var(--s5)',a:'F'},
+ {k:'hotspot',n:'Hotspot SIPONGI',c:'var(--s6)',a:'H',open:1}];
+const SM=Object.fromEntries(ST.map(s=>[s.k,s]));
+/* Resort & koordinat perkiraan: ganti sesuai data resmi */
+const KW=[
+ {p:'SPTN I Bekol',k:'Resort Bekol',la:-7.85,lo:114.37},
+ {p:'SPTN I Bekol',k:'Resort Bama',la:-7.84,lo:114.46},
+ {p:'SPTN I Bekol',k:'Resort Labuhan Merak',la:-7.77,lo:114.40},
+ {p:'SPTN II Karangtekok',k:'Resort Karangtekok',la:-7.80,lo:114.33},
+ {p:'SPTN II Karangtekok',k:'Resort Perengan',la:-7.74,lo:114.36},
+ {p:'SPTN II Karangtekok',k:'Resort Watu Dodol',la:-7.93,lo:114.40}];
+/* Data dinamis contoh (ilustrasi) */
+const DATA={
+ bulan:['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep'],
+ nus:[8200,7100,9400,11800,10300,12600,15900,16800,12400],
+ man:[310,280,350,420,390,510,780,830,540],
+ pnbp:[412,365,468,590,520,640,810,862,630],
+ pat:[[38,4,'Penggembalaan liar'],[35,3,'Penggembalaan liar'],[40,2,'Perburuan liar'],[42,5,'Penggembalaan liar'],[41,3,'Masuk tanpa izin'],[44,2,'Perburuan liar'],[46,6,'Api & pembakaran'],[47,7,'Api & pembakaran'],[43,4,'Api & pembakaran']],
+ sat:[['Banteng (Bos javanicus)',320,'Terancam punah'],['Rusa timor',1450,'Rentan'],['Kerbau liar',210,'Data kurang'],['Ajag (Cuon alpinus)',34,'Terancam punah'],['Macan tutul jawa',9,'Kritis'],['Merak hijau',165,'Terancam punah']]};
+const $=id=>document.getElementById(id);
+function setTheme(t,keep){document.documentElement.dataset.theme=t;document.querySelectorAll('.theme button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.th===t));if(keep)try{localStorage.setItem('tema-baluran',t)}catch(e){}}
+let t0=null;try{t0=localStorage.getItem('tema-baluran')}catch(e){}
+setTheme(t0||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+document.querySelectorAll('.theme button').forEach(b=>b.onclick=()=>setTheme(b.dataset.th,true));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const addD=(s,n)=>{const d=new Date(s+'T00:00:00');d.setDate(d.getDate()+n);return iso(d)};
+const diff=(a,b)=>Math.round((new Date(a+'T00:00:00')-new Date(b+'T00:00:00'))/864e5);
+const fmt=s=>new Date(s+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'});
+const num=n=>n.toLocaleString('id-ID');
+const TODAY=iso(new Date());
+let R=[],off=0,closed=new Set(),editId=null,curId=null;
+const KEY='baluran-laporan-v1';
+/* Supabase aktif bila config.js berisi URL & anon key; jika kosong, data disimpan di peramban */
+const CFG=window.APP_CONFIG||{};
+const SB=(CFG.SUPABASE_URL&&CFG.SUPABASE_ANON_KEY&&window.supabase)?window.supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY):null;
+let user=null;
+const fromDb=x=>({id:x.id,k:x.resort,t:x.tanggal,s:x.status,ket:x.keterangan||'',la:x.latitude,lo:x.longitude});
+const toDb=o=>({resort:o.k,tanggal:o.t,status:o.s,keterangan:o.ket,latitude:o.la,longitude:o.lo});
+async function load(){
+ if(SB){const {data,error}=await SB.from('laporan').select('*').order('tanggal');
+  if(error){toast('Gagal memuat data: '+error.message);return}
+  R=data.map(fromDb);return}
+ try{const v=localStorage.getItem(KEY);if(v){R=JSON.parse(v);return}}catch(e){}seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}}
+function seed(){
+ const d=n=>addD(TODAY,-n);let i=0;
+ const add=(ki,n,s,ket,dla=0,dlo=0)=>{const w=KW[ki];R.push({id:'s'+(i++),k:w.k,t:d(n),s,ket,la:+(w.la+dla).toFixed(4),lo:+(w.lo+dlo).toFixed(4)})};
+ [3,2,1,0].forEach(n=>add(0,n,'pemadaman','Api di padang savana Bekol, pemadaman darat oleh regu Manggala Agni dan masyarakat mitra.',.02,.03));
+ [2,1].forEach(n=>add(1,n,'pemadaman','Api merambat dekat blok Bama.',-.01,.02));add(1,0,'padam','Api padam, pendinginan selesai.',-.01,.02);
+ add(2,2,'groundcheck','Tim menuju titik hotspot.');add(2,1,'groundcheck','Menunggu hasil cek lapangan.');
+ add(3,1,'konfirmasi','Titik terpantau satelit, belum ada laporan lapangan.',.01,-.01);
+ add(4,3,'false','Hasil cek: pembakaran lahan warga di luar kawasan.');
+ add(5,0,'hotspot','Terpantau SIPONGI, belum ditindaklanjuti.');
+ save()}
+const last=k=>R.filter(r=>r.k===k).sort((a,b)=>a.t<b.t?1:-1)[0];
+const stDot=s=>`<span class="dot" style="--c:${SM[s].c}"></span>${SM[s].n}`;
+const lab=k=>`<b>${esc(k)}</b>`;
+
+function render(){
+ const L=KW.map(w=>({w,r:last(w.k)})).filter(x=>x.r);
+ $('cards').innerHTML=ST.map(s=>`<div class="card" style="--c:${s.c}"><b>${L.filter(x=>x.r.s===s.k).length}</b><span>${s.n}</span></div>`).join('');
+ const ak=L.filter(x=>x.r.s==='pemadaman');
+ $('nAktif').textContent=ak.length+' lokasi';
+ $('tAktif').innerHTML=ak.length?ak.map(x=>{let d=x.r.t;const set=new Set(R.filter(r=>r.k===x.w.k&&r.s==='pemadaman').map(r=>r.t));while(set.has(addD(d,-1)))d=addD(d,-1);
+  return `<tr><td>${lab(x.w.k)}</td><td>${fmt(d)}</td><td>${diff(TODAY,d)+1} hari</td></tr>`}).join(''):'<tr><td class="empty" colspan="3">Tidak ada pemadaman aktif.</td></tr>';
+ const up=L.filter(x=>SM[x.r.s].open&&x.r.t<TODAY).sort((a,b)=>a.r.t<b.r.t?-1:1);
+ $('nUpd').textContent=up.length+' lokasi';
+ $('tUpd').innerHTML=up.length?up.map(x=>`<tr><td>${lab(x.w.k)}</td><td>${stDot(x.r.s)}</td><td>${diff(TODAY,x.r.t)} hari</td></tr>`).join(''):'<tr><td class="empty" colspan="3">Semua status terbuka sudah diperbarui.</td></tr>';
+ renderMx();renderMap();
+}
+function renderMx(){
+ const p=$('fSeksi').value,days=Array.from({length:7},(_,i)=>addD(TODAY,off-6+i));
+ let h=`<thead><tr><th class="l">Resort</th>${days.map(d=>`<th class="${d===TODAY?'today':''}">${fmt(d)}</th>`).join('')}</tr></thead><tbody>`;
+ [...new Set(KW.map(w=>w.p))].filter(x=>!p||x===p).forEach(pl=>{
+  h+=`<tr class="g" data-g="${esc(pl)}"><td colspan="8">${closed.has(pl)?'▸':'▾'} ${esc(pl)}</td></tr>`;
+  if(!closed.has(pl))KW.filter(w=>w.p===pl).forEach(w=>{
+   h+=`<tr><td class="l">${lab(w.k)}</td>`+days.map(d=>{const r=R.find(x=>x.k===w.k&&x.t===d);
+    return `<td class="${d===TODAY?'today':''}">`+(r?`<button class="cell f" style="--c:${SM[r.s].c}" data-id="${r.id}" title="${esc(SM[r.s].n)}">${SM[r.s].a}</button>`:`<button class="cell" data-k="${esc(w.k)}" data-d="${d}" aria-label="Isi laporan ${esc(w.k)} ${d}">+</button>`)+'</td>'}).join('')+'</tr>'});
+ });
+ $('mx').innerHTML=h+'</tbody>';
+}
+function renderMap(){
+ const X=lo=>(lo-114.28)/.24*660+20,Y=la=>(-7.68-la)/.30*270+15;let s='';
+ for(let lo=114.3;lo<=114.5;lo+=.05)s+=`<line x1="${X(lo)}" x2="${X(lo)}" y1="10" y2="285" stroke="var(--line)" stroke-width=".6"/><text x="${X(lo)+2}" y="296">${lo.toFixed(2)}°E</text>`;
+ for(let la=-7.7;la>=-7.95;la-=.05)s+=`<line y1="${Y(la)}" y2="${Y(la)}" x1="10" x2="690" stroke="var(--line)" stroke-width=".6"/><text x="12" y="${Y(la)-2}">${la.toFixed(2)}°</text>`;
+ KW.forEach(w=>{const r=last(w.k);
+  s+=`<text x="${X(w.lo)+8}" y="${Y(w.la)+3}">${esc(w.k.replace('Resort ',''))}</text>`;
+  if(!r)s+=`<circle cx="${X(w.lo)}" cy="${Y(w.la)}" r="3.5" fill="none" stroke="var(--mut)"><title>${esc(w.k)}: belum ada laporan</title></circle>`});
+ KW.forEach(w=>{const r=last(w.k);if(!r||r.la==null||r.lo==null)return;
+  const x=X(r.lo),y=Y(r.la),c=SM[r.s].c,t=`<title>${esc(r.k)} — ${SM[r.s].n} (${fmt(r.t)})</title>`;
+  s+=r.s==='pemadaman'?`<path data-id="${r.id}" d="M${x} ${y-8}L${x+7} ${y+5}L${x-7} ${y+5}Z" fill="${c}" stroke="#fff" style="cursor:pointer">${t}</path>`
+   :`<circle data-id="${r.id}" cx="${x}" cy="${y}" r="6" fill="${c}" stroke="#fff" style="cursor:pointer">${t}</circle>`});
+ $('map').innerHTML=s;
+}
+function renderData(){
+ const n=DATA.bulan.length,tv=DATA.nus.reduce((a,b)=>a+b)+DATA.man.reduce((a,b)=>a+b),pn=DATA.pnbp.reduce((a,b)=>a+b),pt=DATA.pat.reduce((a,b)=>a+b[0],0),pl=DATA.pat.reduce((a,b)=>a+b[1],0);
+ $('kpi').innerHTML=[['Total kunjungan',num(tv)],['PNBP (juta Rp)',num(pn)],['Patroli',num(pt)],['Pelanggaran',num(pl)]].map(x=>`<div class="card"><b>${x[1]}</b><span>${x[0]} (Jan–Sep)</span></div>`).join('');
+ const tot=DATA.nus.map((v,i)=>v+DATA.man[i]),mx=Math.max(...tot),bw=400/n;let s='';
+ tot.forEach((t,i)=>{const hn=DATA.nus[i]/mx*150,hm=DATA.man[i]/mx*150,x=i*bw+8;
+  s+=`<rect x="${x}" y="${170-hn}" width="${bw-16}" height="${hn}" fill="var(--brand)"><title>${DATA.bulan[i]}: ${num(DATA.nus[i])} nusantara</title></rect><rect x="${x}" y="${170-hn-hm}" width="${bw-16}" height="${hm}" fill="var(--s4)"><title>${DATA.bulan[i]}: ${num(DATA.man[i])} mancanegara</title></rect><text x="${x+(bw-16)/2}" y="185" text-anchor="middle">${DATA.bulan[i]}</text><text x="${x+(bw-16)/2}" y="${165-hn-hm}" text-anchor="middle">${(t/1000).toFixed(1)}k</text>`});
+ $('chV').innerHTML=s;
+ $('tPat').innerHTML=DATA.pat.map((p,i)=>`<tr><td>${DATA.bulan[i]}</td><td class="n">${p[0]}</td><td class="n">${p[1]}</td><td>${esc(p[2])}</td></tr>`).join('');
+ const ms=Math.max(...DATA.sat.map(x=>x[1]));
+ $('tSat').innerHTML=DATA.sat.map(x=>`<tr><td>${esc(x[0])}</td><td class="n">${num(x[1])}</td><td><div class="bar" style="width:${Math.max(1,x[1]/ms*100)}%"></div></td><td>${esc(x[2])}</td></tr>`).join('');
+}
+function fillSel(){
+ $('fSeksi').innerHTML='<option value="">Semua seksi</option>'+[...new Set(KW.map(w=>w.p))].map(p=>`<option>${esc(p)}</option>`).join('');
+ $('kws').innerHTML=KW.map(w=>`<option value="${esc(w.k)}">${esc(w.k)} (${esc(w.p)})</option>`).join('');
+ $('sts').innerHTML=ST.map(s=>`<option value="${s.k}">${s.n}</option>`).join('');
+ $('legend').innerHTML=ST.map(s=>`<span><span class="dot" style="--c:${s.c}"></span>${s.a} = ${s.n}</span>`).join('');
+}
+function tab(t){document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));['dash','data','form'].forEach(x=>$(x).hidden=x!==t);scrollTo(0,0)}
+function toast(m){const e=$('toast');e.textContent=m;e.hidden=false;setTimeout(()=>e.hidden=true,2200)}
+function defCoord(){const w=KW.find(x=>x.k===$('kws').value);$('lat').value=w.la;$('lon').value=w.lo}
+function openForm(o){if(SB&&!user){$('login').showModal();return}
+ editId=o.id||null;$('formTitle').textContent=editId?'Ubah laporan':'Form laporan harian';
+ $('kws').value=o.k||KW[0].k;$('tgl').value=o.t||TODAY;$('sts').value=o.s||'pemadaman';
+ $('lat').value=o.la??'';$('lon').value=o.lo??'';$('ket').value=o.ket||'';
+ if(!editId&&o.la==null)defCoord();tab('form')}
+function detail(id){
+ const r=R.find(x=>x.id===id);if(!r)return;curId=id;const w=KW.find(x=>x.k===r.k);
+ $('dTitle').textContent=r.k;
+ $('dBody').innerHTML=`<dt>Seksi</dt><dd>${esc(w.p)}</dd><dt>Tanggal</dt><dd>${esc(r.t)}</dd><dt>Status</dt><dd>${stDot(r.s)}</dd><dt>Koordinat</dt><dd>${r.la!=null?esc(r.la)+', '+esc(r.lo):'-'}</dd><dt>Keterangan</dt><dd>${esc(r.ket)||'-'}</dd>`;
+ $('dlg').showModal()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>b.dataset.t==='form'?openForm({}):tab(b.dataset.t));
+$('mx').onclick=e=>{const c=e.target.closest('.cell'),g=e.target.closest('tr.g');
+ if(c){c.dataset.id?detail(c.dataset.id):openForm({k:c.dataset.k,t:c.dataset.d})}
+ else if(g){const p=g.dataset.g;closed.has(p)?closed.delete(p):closed.add(p);renderMx()}};
+$('map').onclick=e=>{const id=e.target.dataset&&e.target.dataset.id;if(id)detail(id)};
+$('fSeksi').onchange=renderMx;
+$('prev').onclick=()=>{off-=7;renderMx()};$('next').onclick=()=>{off+=7;renderMx()};$('now').onclick=()=>{off=0;renderMx()};
+$('showAll').onclick=()=>{closed.clear();renderMx()};$('hideAll').onclick=()=>{KW.forEach(w=>closed.add(w.p));renderMx()};
+$('kws').onchange=()=>{if(!editId)defCoord()};
+$('reset').onclick=()=>openForm({});
+$('dClose').onclick=()=>$('dlg').close();
+$('dEdit').onclick=()=>{$('dlg').close();openForm(R.find(x=>x.id===curId))};
+$('dDel').onclick=async()=>{
+ if(SB&&!user){$('dlg').close();$('login').showModal();return}
+ if(!confirm('Hapus laporan ini?'))return;
+ if(SB){const {error}=await SB.from('laporan').delete().eq('id',curId);if(error){toast('Gagal menghapus: '+error.message);return}await load()}
+ else{R=R.filter(x=>x.id!==curId);save()}
+ $('dlg').close();render();toast('Laporan dihapus')};
+$('f').onsubmit=async e=>{e.preventDefault();
+ const o={k:$('kws').value,t:$('tgl').value,s:$('sts').value,ket:$('ket').value.trim(),la:$('lat').value===''?null:+$('lat').value,lo:$('lon').value===''?null:+$('lon').value};
+ if(SB){const q=editId?await SB.from('laporan').update(toDb(o)).eq('id',editId):await SB.from('laporan').upsert(toDb(o),{onConflict:'resort,tanggal'});
+  if(q.error){toast('Gagal menyimpan: '+q.error.message);return}await load()}
+ else{const dup=R.find(x=>x.k===o.k&&x.t===o.t&&x.id!==editId);if(dup)R=R.filter(x=>x!==dup);
+  if(editId)Object.assign(R.find(x=>x.id===editId),o);else R.push({id:'r'+Date.now(),...o});save()}
+ render();tab('dash');toast('Laporan disimpan')};
+function authUI(){$('auth').hidden=!SB;$('auth').textContent=user?'Keluar ('+user.email+')':'Masuk petugas';
+ $('conn').textContent=SB?(user?'● Terhubung ke Supabase — mode petugas':'● Terhubung ke Supabase — hanya lihat'):'● Mode contoh: laporan tersimpan di peramban ini'}
+$('auth').onclick=()=>user?SB.auth.signOut():$('login').showModal();
+$('lf').onsubmit=async e=>{e.preventDefault();const {error}=await SB.auth.signInWithPassword({email:$('lem').value,password:$('lpw').value});
+ if(error){toast('Gagal masuk: '+error.message);return}$('login').close();$('lpw').value='';toast('Berhasil masuk')};
+fillSel();renderData();authUI();
+if(SB){SB.auth.getSession().then(({data})=>{user=data.session?data.session.user:null;authUI()});
+ SB.auth.onAuthStateChange((_,ses)=>{user=ses?ses.user:null;authUI()});
+ setInterval(()=>load().then(render),60000)}
+load().then(render);
+</script>
+</body>
+</html>
